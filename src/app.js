@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('./cors');
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -8,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors());
+
 
 mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
     useUnifiedTopology: true,
@@ -43,6 +42,9 @@ process.on('SIGINT', () => {
 
 const Users = require('./models/userModel');
 const Tasks = require('./models/taskModel');
+
+const indexRoutes  = require('./routes/index-routes');
+app.use('/', indexRoutes);
 
 const taskRoutes = require('./routes/task-routes');
 app.use('/tasks', taskRoutes);
