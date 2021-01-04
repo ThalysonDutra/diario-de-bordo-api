@@ -26,7 +26,7 @@ exports.loginUser = async (req,res)=>{
     if(usuarioBD == null){
       res.status(403).send({message:'Email ou senha  incorreto.'});
     }
-    res.status(200).send({message:'Login realizado com sucesso'});
+    res.status(200).send(usuarioBD);
   }catch(error){
     res.status(500).send({message: 'Erro ao realizar login.'});
   }
