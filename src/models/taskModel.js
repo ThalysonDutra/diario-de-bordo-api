@@ -27,6 +27,10 @@ const TaskSchema = new Schema({
       required: true,
       default: 0
   },
+  description:{
+      type: String,
+      required: false,
+  },
   idUser:{
       type:String,
       required: true

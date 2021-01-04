@@ -9,6 +9,7 @@ exports.createTask = async (req, res) => {
             data: req.body.data,
             frequency:req.body.frequency,
             duration:req.body.duration,
+            description:req.body.description,
             deadline:req.body.deadline,
             idUser:req.body.idUser
         }); 
@@ -59,7 +60,7 @@ exports.deleteTask = async (req, res)=>{
     try{
         const parametro = new ObjectId(req.params.idTask);
         const data = await TaskModel.findByIdAndDelete(parametro);
-        res.json(data); 
+        res.status(204).send({message: "Atividade removida."}); 
     }catch(error){
         res.status(500).send({message: "Erro ao remover atividade."});
     }
@@ -70,7 +71,7 @@ exports.updateTaskstatus = async (req,res)=>{
 
     const data = await TaskModel.findOneAndUpdate({_id: parametro},  { $set: { status: req.params.status }},{useFindAndModify: false},(error,model)=>{
         if(error){
-            res.status(500).send({message: "Erro ao remover atividade."});
+            res.status(500).send({message: "Erro ao atualizar atividade."});
 
         }else{
             res.status(200).send({message: "Atividade atualizada com sucesso."});
@@ -78,4 +79,25 @@ exports.updateTaskstatus = async (req,res)=>{
         }
     })
         
+};
+
+exports.updateTask= async (req,res)=>{
+    const parametro = new ObjectId(req.params.idTask)
+    const {title,data,duration,frequency,description,deadline} = req.body;
+    const task = await TaskModel.findOneAndUpdate({_id: parametro},  { $set: { 
+        title: title,
+        data: data,
+        frequency: frequency,
+        duration: duration,
+        description: description,
+        deadline: deadline
+     }},{useFindAndModify: false},(error,model)=>{
+        if(error){
+            res.status(500).send({message: "Erro ao atualizar atividade."});
+
+        }else{
+            res.status(200).send({message: "Atividade atualizada com sucesso."});
+
+        }
+    })
 };
