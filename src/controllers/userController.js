@@ -18,6 +18,20 @@ exports.createUser = async (req, res) => {
    }
 };
 
+exports.loginUser = async (req,res)=>{
+  try{
+    const {email,password} = req.body;
+    const usuarioBD = await UsersModel.findOne({email,password});
+
+    if(usuarioBD == null){
+      res.status(403).send({message:'Email ou senha  incorreto.'});
+    }
+    res.status(200).send({message:'Login realizado com sucesso'});
+  }catch(error){
+    res.status(500).send({message: 'Erro ao realizar login.'});
+  }
+};
+
   exports.allUsers = async (req, res) => {
     try {
       const data = await UsersModel.find({});

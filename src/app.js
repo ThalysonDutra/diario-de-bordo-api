@@ -1,10 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-
-
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -47,29 +43,6 @@ process.on('SIGINT', () => {
 
 const Users = require('./models/userModel');
 const Tasks = require('./models/taskModel');
-
-const swaggerOptions = {
-    swaggerDefinition: {
-      openapi: "3.0.0",
-      info: {
-        version: "1.0.0",
-        title: "Diário de Bordo API",
-        description: "API desenvolvida para o aplicativo Diário de bordo.",
-        contact: {
-          name: "Thalyson Dutra"
-        },
-      }
-    },
-    apis: ["./routes/*.js"]
-  };
-  
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerDocs, { explorer: true })
-  );
-
 
 const taskRoutes = require('./routes/task-routes');
 app.use('/tasks', taskRoutes);
