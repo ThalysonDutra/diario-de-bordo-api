@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node node_modules/nodemon/bin/nodemon bin/server",
-    "start": "node src/app.js"
-  },
+    "dev": "node node_modules/nodemon/bin/nodemon bin/server"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ThalysonDutra/api-diario-de-bordo.git"
